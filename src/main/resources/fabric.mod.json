@@ -18,6 +18,13 @@
 			"com.diehardpractice.client.DieHardPracticeClient"
 		]
 	},
+	"mixins": [
+		"diehardpractice.mixins.json",
+		{
+			"config": "diehardpractice.client.mixins.json",
+			"environment": "client"
+		}
+	],
 	"depends": {
 		"fabricloader": ">=0.20.1",
 		"minecraft": "~1.21.1",

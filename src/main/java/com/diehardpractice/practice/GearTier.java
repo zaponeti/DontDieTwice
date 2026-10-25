@@ -1,0 +1,25 @@
+package com.diehardpractice.practice;
+
+import java.util.Locale;
+import net.minecraft.network.chat.Component;
+
+public enum GearTier {
+	NEWBIE("diehardpractice.gear_tier.newbie"),
+	EXPERIENCED("diehardpractice.gear_tier.experienced"),
+	PRO("diehardpractice.gear_tier.pro");
+
+	private final String translationKey;
+
+	GearTier(String translationKey) {
+		this.translationKey = translationKey;
+	}
+
+	public Component displayName() {
+		return Component.translatable(this.translationKey);
+	}
+
+	/** Lowercase key used in the gear config file, e.g. "experienced". */
+	public String id() {
+		return this.name().toLowerCase(Locale.ROOT);
+	}
+}
