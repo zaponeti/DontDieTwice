@@ -43,8 +43,6 @@ public final class PracticeRestart {
 		}
 
 		((CreateWorldScreenInvoker) screen).diehardpractice$onCreate();
-		// Set after onCreate() runs: that call also stashes the (blank, freshly-opened) screen's own selection,
-		// which would otherwise clobber this restart's values before the new world's first join consumes them.
 		PracticeClientState.setPending(type, tier, PracticeClientState.currentBastionSubtype);
 	}
 }

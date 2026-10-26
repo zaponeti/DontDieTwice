@@ -3,11 +3,7 @@
 	"package": "com.diehardpractice.client.mixin",
 	"compatibilityLevel": "JAVA_${java}",
 	"client": [
-		"CreateWorldScreenInvoker",
-		"CreateWorldScreenMixin",
-		"GameTabMixin",
-		"PauseScreenMixin",
-		"SelectWorldScreenMixin"
+		"CreateWorldScreenInvoker"
 	],
 	"injectors": {
 		"defaultRequire": 1

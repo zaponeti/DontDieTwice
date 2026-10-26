@@ -6,8 +6,16 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -44,6 +52,58 @@ public class DieHardPracticeClient implements ClientModInitializer {
 		});
 
 		HudRenderCallback.EVENT.register(DieHardPracticeClient::renderHud);
+
+		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
+			if (screen instanceof SelectWorldScreen selectWorldScreen) {
+				List<AbstractWidget> buttons = Screens.getButtons(screen);
+				// Join vanilla's "Play Selected World"/"Create New World" row instead of adding a new one below
+				// it - there's barely any vertical gap between that row, the scrollable world list above it, and
+				// the "Edit"/"Delete"/"Back" row below it, so an extra row collides with one or the other.
+				// Everything here is measured at runtime (not a hardcoded guess) so it tracks whatever space
+				// vanilla's own row actually leaves free, in this version or any other.
+				List<AbstractWidget> bottomRow = buttons.stream().filter(widget -> widget.getY() > screen.height / 2).toList();
+				int rowY = bottomRow.stream().mapToInt(AbstractWidget::getY).min().orElse(screen.height - 52);
+				int rowRightEdge = bottomRow.stream()
+					.filter(widget -> widget.getY() == rowY)
+					.mapToInt(widget -> widget.getX() + widget.getWidth())
+					.max()
+					.orElse(screen.width / 2);
+				// Fill whatever room is actually left in that row (clamped to a sane range) instead of a fixed
+				// width, so it reads more like a third column next to "Play Selected World"/"Create New World"
+				// (similar to the 3-button row on the multiplayer screen) rather than a narrow bolted-on button.
+				int x = rowRightEdge + 4;
+				int buttonWidth = Math.max(80, Math.min(200, screen.width - 4 - x));
+				buttons.add(
+					Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
+						.bounds(x, rowY, buttonWidth, 20)
+						.build()
+				);
+			} else if (screen instanceof TitleScreen titleScreen) {
+				// Reachable from the title screen too: if no worlds exist yet, vanilla skips SelectWorldScreen
+				// and jumps straight to CreateWorldScreen, so the button there would never even be seen.
+				List<AbstractWidget> buttons = Screens.getButtons(screen);
+				// Excludes the "Copyright Mojang AB..." corner link (a 10-tall PlainTextButton sitting right at
+				// the bottom of the screen) - without this filter it looked like the "last" widget and pushed
+				// our button below the visible screen entirely. Real menu buttons are all 20 tall.
+				int belowLastButton = buttons.stream()
+					.filter(widget -> widget.getHeight() >= 20)
+					.mapToInt(widget -> widget.getY() + widget.getHeight())
+					.max()
+					.orElse(screen.height / 4) + 4;
+				buttons.add(
+					Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
+						.bounds(screen.width / 2 - 100, belowLastButton, 200, 20)
+						.build()
+				);
+			} else if (screen instanceof PauseScreen pauseScreen && pauseScreen.showsPauseMenu() && PracticeClientState.hasPractice) {
+				Screens.getButtons(screen)
+					.add(
+						Button.builder(Component.translatable("diehardpractice.restart_button"), b -> PracticeRestart.perform(client))
+							.bounds(screen.width / 2 - 100, screen.height - 28, 200, 20)
+							.build()
+					);
+			}
+		});
 	}
 
 	private static void renderHud(GuiGraphics graphics, net.minecraft.client.DeltaTracker tickCounter) {
