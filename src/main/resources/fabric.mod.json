@@ -3,12 +3,12 @@
 	"id": "diehardpractice",
 	"version": "${version}",
 	"name": "DieHardPractice",
-	"description": "An empty Fabric mod template.",
+	"description": "Practice Bastions, Fortresses, the Ender Dragon, and End Cities instantly - pick a target and a gear tier, get teleported in with a raid timer running.",
 	"authors": [
-		"Senya"
+		"Zaponeti"
 	],
 	"contact": {},
-	"license": "ARR",
+	"license": "MIT",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
