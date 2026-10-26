@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import java.util.Comparator;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -63,21 +64,48 @@ public class DieHardPracticeClient implements ClientModInitializer {
 				// vanilla's own row actually leaves free, in this version or any other.
 				List<AbstractWidget> bottomRow = buttons.stream().filter(widget -> widget.getY() > screen.height / 2).toList();
 				int rowY = bottomRow.stream().mapToInt(AbstractWidget::getY).min().orElse(screen.height - 52);
-				int rowRightEdge = bottomRow.stream()
+				List<AbstractWidget> rowButtons = bottomRow.stream()
 					.filter(widget -> widget.getY() == rowY)
-					.mapToInt(widget -> widget.getX() + widget.getWidth())
-					.max()
-					.orElse(screen.width / 2);
-				// Fill whatever room is actually left in that row (clamped to a sane range) instead of a fixed
-				// width, so it reads more like a third column next to "Play Selected World"/"Create New World"
-				// (similar to the 3-button row on the multiplayer screen) rather than a narrow bolted-on button.
-				int x = rowRightEdge + 4;
-				int buttonWidth = Math.max(80, Math.min(200, screen.width - 4 - x));
-				buttons.add(
-					Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
-						.bounds(x, rowY, buttonWidth, 20)
-						.build()
-				);
+					.sorted(Comparator.comparingInt(AbstractWidget::getX))
+					.toList();
+				int rowRightEdge = rowButtons.stream().mapToInt(widget -> widget.getX() + widget.getWidth()).max().orElse(screen.width / 2);
+				List<AbstractWidget> lowerRow = bottomRow.stream().filter(widget -> widget.getY() > rowY).toList();
+				if (rowButtons.size() == 2 && !lowerRow.isEmpty()) {
+					// Keep vanilla's original left-to-right order ("Play Selected World", "Create New World",
+					// then Practice) but shrink all three to equal widths, sized so the whole row spans exactly
+					// as wide as the "Edit"/"Delete"/"Re-Create"/"Back" row below it - measured at runtime from
+					// that row's own bounds, not a hardcoded width. These are plain public widgets already
+					// handed to us, so this is just calling their own setX()/setWidth(), not touching anything
+					// private or vanilla-internal.
+					AbstractWidget playButton = rowButtons.get(0);
+					AbstractWidget createButton = rowButtons.get(1);
+					int lowerRowLeft = lowerRow.stream().mapToInt(AbstractWidget::getX).min().orElse(playButton.getX());
+					int lowerRowRight = lowerRow.stream().mapToInt(widget -> widget.getX() + widget.getWidth()).max().orElse(rowRightEdge);
+					int gap = 4;
+					int compactWidth = (lowerRowRight - lowerRowLeft - 2 * gap) / 3;
+					int slot0X = lowerRowLeft;
+					int slot1X = slot0X + compactWidth + gap;
+					int slot2X = slot1X + compactWidth + gap;
+					playButton.setX(slot0X);
+					playButton.setWidth(compactWidth);
+					createButton.setX(slot1X);
+					createButton.setWidth(compactWidth);
+					buttons.add(
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
+							.bounds(slot2X, rowY, compactWidth, 20)
+							.build()
+					);
+				} else {
+					// Fill whatever room is actually left in that row (clamped to a sane range) instead of a
+					// fixed width, so it reads more like a third column rather than a narrow bolted-on button.
+					int x = rowRightEdge + 4;
+					int buttonWidth = Math.max(80, Math.min(200, screen.width - 4 - x));
+					buttons.add(
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
+							.bounds(x, rowY, buttonWidth, 20)
+							.build()
+					);
+				}
 			} else if (screen instanceof TitleScreen titleScreen) {
 				// Reachable from the title screen too: if no worlds exist yet, vanilla skips SelectWorldScreen
 				// and jumps straight to CreateWorldScreen, so the button there would never even be seen.
@@ -85,16 +113,34 @@ public class DieHardPracticeClient implements ClientModInitializer {
 				// Excludes the "Copyright Mojang AB..." corner link (a 10-tall PlainTextButton sitting right at
 				// the bottom of the screen) - without this filter it looked like the "last" widget and pushed
 				// our button below the visible screen entirely. Real menu buttons are all 20 tall.
-				int belowLastButton = buttons.stream()
+				List<AbstractWidget> realButtons = buttons.stream()
 					.filter(widget -> widget.getHeight() >= 20)
-					.mapToInt(widget -> widget.getY() + widget.getHeight())
-					.max()
-					.orElse(screen.height / 4) + 4;
-				buttons.add(
-					Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
-						.bounds(screen.width / 2 - 100, belowLastButton, 200, 20)
-						.build()
-				);
+					.sorted(Comparator.comparingInt(AbstractWidget::getY))
+					.toList();
+				if (realButtons.size() >= 2) {
+					// Insert as the 2nd entry, right under "Singleplayer", by nudging every button below it down
+					// one row - these are plain public widgets already handed to us, so this is just calling
+					// their own setY(), not touching anything private or vanilla-internal.
+					int singleplayerY = realButtons.get(0).getY();
+					int rowHeight = realButtons.get(1).getY() - singleplayerY;
+					for (AbstractWidget widget : realButtons) {
+						if (widget.getY() > singleplayerY) {
+							widget.setY(widget.getY() + rowHeight);
+						}
+					}
+					buttons.add(
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
+							.bounds(screen.width / 2 - 100, singleplayerY + rowHeight, 200, 20)
+							.build()
+					);
+				} else {
+					int belowLastButton = realButtons.stream().mapToInt(widget -> widget.getY() + widget.getHeight()).max().orElse(screen.height / 4) + 4;
+					buttons.add(
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
+							.bounds(screen.width / 2 - 100, belowLastButton, 200, 20)
+							.build()
+					);
+				}
 			} else if (screen instanceof PauseScreen pauseScreen && pauseScreen.showsPauseMenu() && PracticeClientState.hasPractice) {
 				Screens.getButtons(screen)
 					.add(
