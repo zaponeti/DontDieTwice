@@ -47,6 +47,10 @@ public class DieHardPractice implements ModInitializer {
 			state.tickTimer();
 			if (server.getTickCount() % 20 == 0) {
 				for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+					if (state.hasPractice()) {
+						PracticeService.checkCompletion(player, state.getType(), state);
+					}
+
 					PracticeService.syncState(player, state);
 				}
 			}

@@ -65,38 +65,43 @@ public class DieHardPracticeClient implements ClientModInitializer {
 		long centis = totalMillis / 10L % 100L;
 		String timeText = hours > 0 ? String.format("%d:%02d:%02d.%02d", hours, minutes, seconds, centis) : String.format("%d:%02d.%02d", minutes, seconds, centis);
 
+		PracticeType type = PracticeClientState.currentType;
 		int centerX = graphics.guiWidth() / 2;
-		int boxWidth = 150;
-		int boxHeight = 20;
-		int boxLeft = centerX - boxWidth / 2;
+		int boxHeight = 24;
+		int timeBoxWidth = 105;
+		int iconBoxWidth = boxHeight;
+		int totalWidth = timeBoxWidth + iconBoxWidth;
+		int left = centerX - totalWidth / 2;
+		int top = HUD_TOP_Y;
+		int right = left + totalWidth;
+		int bottom = top + boxHeight;
+		int dividerX = left + timeBoxWidth;
+		int borderColor = 0xFF3F3F3F;
 
-		graphics.fill(boxLeft, HUD_TOP_Y, boxLeft + boxWidth, HUD_TOP_Y + boxHeight, 0xB0000000);
-		graphics.fill(boxLeft, HUD_TOP_Y, boxLeft + boxWidth, HUD_TOP_Y + 1, 0xFF3F3F3F);
-		graphics.fill(boxLeft, HUD_TOP_Y + boxHeight - 1, boxLeft + boxWidth, HUD_TOP_Y + boxHeight, 0xFF3F3F3F);
+		graphics.fill(left, top, right, bottom, 0xB0000000);
+		graphics.fill(left, top, right, top + 1, borderColor);
+		graphics.fill(left, bottom - 1, right, bottom, borderColor);
+		graphics.fill(left, top, left + 1, bottom, borderColor);
+		graphics.fill(right - 1, top, right, bottom, borderColor);
+		graphics.fill(dividerX, top, dividerX + 1, bottom, borderColor);
 
 		int timeColor = PracticeClientState.timerRunning ? 0x55FF55 : 0xAAAAAA;
 		graphics.pose().pushPose();
-		graphics.pose().translate(centerX, HUD_TOP_Y + boxHeight / 2.0F - 4, 0);
+		graphics.pose().translate(left + timeBoxWidth / 2.0F, top + boxHeight / 2.0F - 4, 0);
 		graphics.pose().scale(1.5F, 1.5F, 1.5F);
 		graphics.drawCenteredString(minecraft.font, timeText, 0, 0, timeColor);
 		graphics.pose().popPose();
 
-		PracticeType type = PracticeClientState.currentType;
-		Component infoText = Component.empty().append(type.displayName()).append(" · ").append(PracticeClientState.currentTier.displayName());
-		int infoWidth = minecraft.font.width(infoText);
-		int iconSize = 16;
-		int groupWidth = infoWidth + 4 + iconSize;
-		int groupLeft = centerX - groupWidth / 2;
-		int infoY = HUD_TOP_Y + boxHeight + 4;
+		graphics.renderItem(new ItemStack(iconFor(type)), dividerX + (iconBoxWidth - 16) / 2, top + (boxHeight - 16) / 2);
 
-		graphics.renderItem(new ItemStack(iconFor(type)), groupLeft, infoY - 4);
-		graphics.drawString(minecraft.font, infoText, groupLeft + iconSize + 4, infoY, 0xDDDDDD);
+		Component infoText = Component.empty().append(type.displayName()).append(" · ").append(PracticeClientState.currentTier.displayName());
+		graphics.drawCenteredString(minecraft.font, infoText, centerX, bottom + 4, 0xDDDDDD);
 	}
 
 	private static Item iconFor(PracticeType type) {
 		return switch (type) {
-			case BASTION -> Items.GILDED_BLACKSTONE;
-			case FORTRESS -> Items.NETHER_BRICKS;
+			case BASTION -> Items.PIGLIN_HEAD;
+			case FORTRESS -> Items.BLAZE_ROD; // vanilla has no Blaze head item
 			case DRAGON -> Items.DRAGON_HEAD;
 			case END_CITY -> Items.ELYTRA;
 		};

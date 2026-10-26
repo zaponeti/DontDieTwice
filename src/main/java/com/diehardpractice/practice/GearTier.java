@@ -6,7 +6,8 @@ import net.minecraft.network.chat.Component;
 public enum GearTier {
 	NEWBIE("diehardpractice.gear_tier.newbie"),
 	EXPERIENCED("diehardpractice.gear_tier.experienced"),
-	PRO("diehardpractice.gear_tier.pro");
+	PRO("diehardpractice.gear_tier.pro"),
+	SPEEDRUNNER("diehardpractice.gear_tier.speedrunner");
 
 	private final String translationKey;
 

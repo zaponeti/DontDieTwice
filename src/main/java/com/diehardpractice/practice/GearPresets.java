@@ -40,7 +40,7 @@ public final class GearPresets {
 	private GearPresets() {
 	}
 
-	public record Loadout(ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, ItemStack offhand, List<ItemStack> hotbar) {
+	public record Loadout(ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet, ItemStack offhand, List<ItemStack> items) {
 	}
 
 	public static Loadout get(RegistryAccess registryAccess, PracticeType type, GearTier tier) {
@@ -51,7 +51,7 @@ public final class GearPresets {
 			parseSlot(registryAccess, tierObject, "legs"),
 			parseSlot(registryAccess, tierObject, "feet"),
 			parseSlot(registryAccess, tierObject, "offhand"),
-			parseHotbar(registryAccess, tierObject)
+			parseItems(registryAccess, tierObject)
 		);
 	}
 
@@ -59,14 +59,35 @@ public final class GearPresets {
 		return tierObject.has(key) ? parseItemEntry(registryAccess, tierObject.get(key)) : ItemStack.EMPTY;
 	}
 
-	private static List<ItemStack> parseHotbar(RegistryAccess registryAccess, JsonObject tierObject) {
-		List<ItemStack> hotbar = new ArrayList<>();
-		if (tierObject.has("hotbar")) {
-			for (JsonElement element : tierObject.getAsJsonArray("hotbar")) {
-				hotbar.add(parseItemEntry(registryAccess, element));
+	private static List<ItemStack> parseItems(RegistryAccess registryAccess, JsonObject tierObject) {
+		List<ItemStack> items = new ArrayList<>();
+		if (tierObject.has("items")) {
+			for (JsonElement element : tierObject.getAsJsonArray("items")) {
+				addRespectingStackSize(items, parseItemEntry(registryAccess, element));
 			}
 		}
-		return hotbar;
+		return items;
+	}
+
+	/**
+	 * Splits a requested count across as many stacks as the item's real max stack size needs (e.g. a "count": 32
+	 * ender pearl entry becomes two stacks of 16), so the config can just say how many without tracking per-item caps.
+	 */
+	private static void addRespectingStackSize(List<ItemStack> items, ItemStack stack) {
+		int maxStackSize = stack.getMaxStackSize();
+		int remaining = stack.getCount();
+		if (remaining <= maxStackSize) {
+			items.add(stack);
+			return;
+		}
+
+		while (remaining > 0) {
+			int chunk = Math.min(maxStackSize, remaining);
+			ItemStack copy = stack.copy();
+			copy.setCount(chunk);
+			items.add(copy);
+			remaining -= chunk;
+		}
 	}
 
 	private static ItemStack parseItemEntry(RegistryAccess registryAccess, JsonElement element) {

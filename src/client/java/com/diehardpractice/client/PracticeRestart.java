@@ -10,9 +10,10 @@ import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 
 /**
- * Quits the current world and immediately creates a brand new one with the same practice selection.
- * A simple re-teleport isn't enough: the structure itself (loot, mobs, broken blocks) stays however the
- * previous attempt left it, so only a fresh world gives a genuinely clean attempt.
+ * Quits the current world and immediately creates a brand new one with the same practice selection and the
+ * same seed. A simple re-teleport isn't enough: the structure itself (loot, mobs, broken blocks) stays however
+ * the previous attempt left it, so a fresh world is needed - but it has to be the SAME seed, or the search
+ * just lands on a different, randomly-placed structure instead of a clean copy of the one just practiced.
  */
 public final class PracticeRestart {
 	private PracticeRestart() {
@@ -25,6 +26,8 @@ public final class PracticeRestart {
 			return;
 		}
 
+		Long seed = minecraft.getSingleplayerServer() != null ? minecraft.getSingleplayerServer().getWorldData().worldGenOptions().seed() : null;
+
 		if (minecraft.level != null) {
 			minecraft.level.disconnect();
 			minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
@@ -34,7 +37,12 @@ public final class PracticeRestart {
 		minecraft.setScreen(titleScreen);
 
 		CreateWorldScreen.openFresh(minecraft, titleScreen);
-		((CreateWorldScreenInvoker) minecraft.screen).diehardpractice$onCreate();
+		CreateWorldScreen screen = (CreateWorldScreen) minecraft.screen;
+		if (seed != null) {
+			screen.getUiState().setSeed(String.valueOf(seed));
+		}
+
+		((CreateWorldScreenInvoker) screen).diehardpractice$onCreate();
 		// Set after onCreate() runs: that call also stashes the (blank, freshly-opened) screen's own selection,
 		// which would otherwise clobber this restart's values before the new world's first join consumes them.
 		PracticeClientState.setPending(type, tier, PracticeClientState.currentBastionSubtype);

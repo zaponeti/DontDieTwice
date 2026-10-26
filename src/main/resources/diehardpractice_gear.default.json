@@ -1,185 +1,333 @@
 {
 	"bastion": {
 		"newbie": {
+			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:soul_speed": 3, "minecraft:feather_falling": 4 } },
+			"offhand": "minecraft:shield",
+			"items": [
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:arrow", "count": 1 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:golden_carrot", "count": 64 },
+				"minecraft:spyglass",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				{ "item": "minecraft:iron_ingot", "count": 32 },
+				"minecraft:bundle",
+				"minecraft:bundle",
+				"minecraft:warped_fungus",
+				{ "item": "minecraft:torch", "count": 64 },
+				"minecraft:totem_of_undying",
+				"minecraft:oak_boat",
+				"minecraft:lava_bucket",
+				"minecraft:water_bucket"
+			]
+		},
+		"experienced": {
 			"head": "minecraft:iron_helmet",
 			"chest": "minecraft:iron_chestplate",
 			"legs": "minecraft:iron_leggings",
 			"feet": "minecraft:golden_boots",
 			"offhand": "minecraft:shield",
-			"hotbar": [
+			"items": [
 				"minecraft:iron_sword",
+				"minecraft:iron_axe",
+				"minecraft:iron_pickaxe",
 				"minecraft:bow",
 				{ "item": "minecraft:arrow", "count": 32 },
-				{ "item": "minecraft:cooked_beef", "count": 16 },
-				{ "potion": "minecraft:fire_resistance", "count": 2 }
-			]
-		},
-		"experienced": {
-			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 2 } },
-			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 2 } },
-			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 2 } },
-			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:soul_speed": 2 } },
-			"offhand": "minecraft:shield",
-			"hotbar": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:arrow", "count": 32 },
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				{ "potion": "minecraft:fire_resistance", "count": 3 },
-				{ "item": "minecraft:ender_pearl", "count": 4 }
+				{ "item": "minecraft:iron_ingot", "count": 16 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
+				"minecraft:oak_boat",
+				"minecraft:bundle",
+				"minecraft:lava_bucket",
+				"minecraft:water_bucket"
 			]
 		},
 		"pro": {
-			"head": { "item": "minecraft:netherite_helmet", "enchantments": { "minecraft:protection": 4 } },
-			"chest": { "item": "minecraft:netherite_chestplate", "enchantments": { "minecraft:protection": 4 } },
-			"legs": { "item": "minecraft:netherite_leggings", "enchantments": { "minecraft:protection": 4 } },
-			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:soul_speed": 3 } },
-			"offhand": "minecraft:totem_of_undying",
-			"hotbar": [
-				{ "item": "minecraft:netherite_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
-				{ "item": "minecraft:arrow", "count": 1 },
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				{ "potion": "minecraft:fire_resistance", "count": 4 },
-				{ "item": "minecraft:ender_pearl", "count": 8 }
+			"feet": "minecraft:golden_boots",
+			"items": [
+				"minecraft:stone_pickaxe",
+				"minecraft:stone_axe",
+				{ "item": "minecraft:oak_planks", "count": 32 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:oak_boat",
+				{ "item": "minecraft:bread", "count": 16 },
+				"minecraft:lava_bucket",
+				"minecraft:water_bucket"
+			]
+		},
+		"speedrunner": {
+			"feet": "minecraft:golden_boots",
+			"items": [
+				"minecraft:wooden_pickaxe",
+				"minecraft:wooden_axe",
+				{ "item": "minecraft:cobblestone", "count": 32 },
+				{ "item": "minecraft:apple", "count": 3 },
+				"minecraft:oak_boat",
+				"minecraft:lava_bucket",
+				"minecraft:water_bucket"
 			]
 		}
 	},
 	"fortress": {
 		"newbie": {
-			"head": "minecraft:iron_helmet",
-			"chest": "minecraft:iron_chestplate",
-			"legs": "minecraft:iron_leggings",
-			"feet": "minecraft:iron_boots",
+			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:soul_speed": 3, "minecraft:feather_falling": 4 } },
 			"offhand": "minecraft:shield",
-			"hotbar": [
-				"minecraft:iron_sword",
-				"minecraft:bow",
-				{ "item": "minecraft:arrow", "count": 32 },
-				{ "item": "minecraft:cooked_beef", "count": 16 },
-				{ "potion": "minecraft:fire_resistance", "count": 2 }
+			"items": [
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3, "minecraft:looting": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:arrow", "count": 1 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:golden_carrot", "count": 64 },
+				"minecraft:spyglass",
+				{ "item": "minecraft:ender_pearl", "count": 16 },
+				{ "item": "minecraft:ender_pearl", "count": 16 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				{ "item": "minecraft:iron_ingot", "count": 32 },
+				"minecraft:bundle",
+				"minecraft:bundle",
+				"minecraft:warped_fungus",
+				{ "item": "minecraft:torch", "count": 64 },
+				{ "potion": "minecraft:fire_resistance", "count": 6 },
+				"minecraft:totem_of_undying",
+				"minecraft:oak_boat",
+				"minecraft:water_bucket"
 			]
 		},
 		"experienced": {
-			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 2 } },
-			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 2 } },
-			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 2 } },
-			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 2 } },
+			"head": "minecraft:iron_helmet",
+			"chest": "minecraft:iron_chestplate",
+			"legs": "minecraft:iron_leggings",
+			"feet": "minecraft:golden_boots",
 			"offhand": "minecraft:shield",
-			"hotbar": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 2, "minecraft:unbreaking": 3 } },
+			"items": [
+				"minecraft:iron_sword",
+				"minecraft:iron_axe",
+				"minecraft:iron_pickaxe",
+				"minecraft:bow",
 				{ "item": "minecraft:arrow", "count": 32 },
-				{ "item": "minecraft:golden_apple", "count": 2 },
-				{ "potion": "minecraft:fire_resistance", "count": 4 },
-				{ "item": "minecraft:ender_pearl", "count": 4 }
+				{ "item": "minecraft:iron_ingot", "count": 16 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
+				"minecraft:oak_boat",
+				"minecraft:bundle",
+				{ "potion": "minecraft:fire_resistance", "count": 3 },
+				"minecraft:water_bucket"
 			]
 		},
 		"pro": {
-			"head": { "item": "minecraft:netherite_helmet", "enchantments": { "minecraft:protection": 4 } },
-			"chest": { "item": "minecraft:netherite_chestplate", "enchantments": { "minecraft:protection": 4 } },
-			"legs": { "item": "minecraft:netherite_leggings", "enchantments": { "minecraft:protection": 4 } },
-			"feet": { "item": "minecraft:netherite_boots", "enchantments": { "minecraft:protection": 4 } },
-			"offhand": "minecraft:totem_of_undying",
-			"hotbar": [
-				{ "item": "minecraft:netherite_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3, "minecraft:looting": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
-				{ "item": "minecraft:arrow", "count": 1 },
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				{ "potion": "minecraft:fire_resistance", "count": 6 },
-				{ "item": "minecraft:ender_pearl", "count": 4 }
+			"feet": "minecraft:golden_boots",
+			"items": [
+				"minecraft:stone_pickaxe",
+				"minecraft:stone_axe",
+				{ "item": "minecraft:oak_planks", "count": 32 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:oak_boat",
+				{ "item": "minecraft:bread", "count": 16 },
+				{ "potion": "minecraft:fire_resistance", "count": 2 },
+				"minecraft:water_bucket"
+			]
+		},
+		"speedrunner": {
+			"feet": "minecraft:golden_boots",
+			"items": [
+				"minecraft:wooden_pickaxe",
+				"minecraft:wooden_axe",
+				{ "item": "minecraft:cobblestone", "count": 32 },
+				{ "item": "minecraft:apple", "count": 3 },
+				{ "potion": "minecraft:fire_resistance", "count": 1 },
+				"minecraft:water_bucket"
 			]
 		}
 	},
 	"dragon": {
 		"newbie": {
+			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:feather_falling": 4 } },
+			"offhand": "minecraft:shield",
+			"items": [
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:arrow", "count": 1 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:golden_carrot", "count": 64 },
+				"minecraft:spyglass",
+				{ "item": "minecraft:ender_pearl", "count": 16 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				{ "item": "minecraft:iron_ingot", "count": 32 },
+				"minecraft:bundle",
+				"minecraft:bundle",
+				"minecraft:warped_fungus",
+				{ "item": "minecraft:torch", "count": 64 },
+				"minecraft:totem_of_undying",
+				"minecraft:oak_boat",
+				"minecraft:water_bucket"
+			]
+		},
+		"experienced": {
 			"head": "minecraft:iron_helmet",
 			"chest": "minecraft:iron_chestplate",
 			"legs": "minecraft:iron_leggings",
 			"feet": "minecraft:iron_boots",
 			"offhand": "minecraft:shield",
-			"hotbar": [
-				"minecraft:bow",
-				{ "item": "minecraft:arrow", "count": 64 },
+			"items": [
 				"minecraft:iron_sword",
+				"minecraft:iron_axe",
 				"minecraft:iron_pickaxe",
-				{ "item": "minecraft:cobblestone", "count": 16 },
-				{ "item": "minecraft:golden_apple", "count": 2 }
-			]
-		},
-		"experienced": {
-			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 2 } },
-			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 2 } },
-			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 2 } },
-			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 2, "minecraft:feather_falling": 2 } },
-			"offhand": "minecraft:shield",
-			"hotbar": [
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:arrow", "count": 64 },
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 2, "minecraft:unbreaking": 3 } },
-				"minecraft:diamond_pickaxe",
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				"minecraft:totem_of_undying"
+				"minecraft:bow",
+				{ "item": "minecraft:arrow", "count": 32 },
+				{ "item": "minecraft:iron_ingot", "count": 16 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
+				"minecraft:oak_boat",
+				"minecraft:bundle",
+				{ "item": "minecraft:ender_pearl", "count": 8 },
+				{ "item": "minecraft:obsidian", "count": 6 },
+				{ "item": "minecraft:red_bed", "count": 15 },
+				"minecraft:water_bucket"
 			]
 		},
 		"pro": {
-			"head": { "item": "minecraft:netherite_helmet", "enchantments": { "minecraft:protection": 4 } },
-			"chest": { "item": "minecraft:netherite_chestplate", "enchantments": { "minecraft:protection": 4 } },
-			"legs": { "item": "minecraft:netherite_leggings", "enchantments": { "minecraft:protection": 4 } },
-			"feet": { "item": "minecraft:netherite_boots", "enchantments": { "minecraft:protection": 4, "minecraft:feather_falling": 4 } },
-			"offhand": "minecraft:totem_of_undying",
-			"hotbar": [
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
-				{ "item": "minecraft:arrow", "count": 1 },
-				{ "item": "minecraft:netherite_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				"minecraft:netherite_pickaxe",
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				"minecraft:totem_of_undying"
+			"items": [
+				"minecraft:stone_pickaxe",
+				"minecraft:stone_axe",
+				{ "item": "minecraft:oak_planks", "count": 32 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:oak_boat",
+				{ "item": "minecraft:bread", "count": 16 },
+				{ "item": "minecraft:obsidian", "count": 4 },
+				{ "item": "minecraft:red_bed", "count": 10 },
+				{ "item": "minecraft:ender_pearl", "count": 4 },
+				"minecraft:bow",
+				{ "item": "minecraft:arrow", "count": 8 },
+				"minecraft:water_bucket"
+			]
+		},
+		"speedrunner": {
+			"items": [
+				"minecraft:wooden_pickaxe",
+				"minecraft:wooden_axe",
+				{ "item": "minecraft:cobblestone", "count": 32 },
+				{ "item": "minecraft:apple", "count": 3 },
+				{ "item": "minecraft:obsidian", "count": 4 },
+				{ "item": "minecraft:red_bed", "count": 6 },
+				{ "item": "minecraft:ender_pearl", "count": 3 },
+				"minecraft:water_bucket"
 			]
 		}
 	},
 	"end_city": {
 		"newbie": {
+			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3 } },
+			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:feather_falling": 4 } },
+			"offhand": "minecraft:shield",
+			"items": [
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:arrow", "count": 1 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:golden_carrot", "count": 64 },
+				"minecraft:spyglass",
+				{ "item": "minecraft:ender_pearl", "count": 16 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				{ "item": "minecraft:iron_ingot", "count": 32 },
+				"minecraft:bundle",
+				"minecraft:bundle",
+				"minecraft:warped_fungus",
+				{ "item": "minecraft:torch", "count": 64 },
+				{ "item": "minecraft:firework_rocket", "count": 64 },
+				{ "item": "minecraft:firework_rocket", "count": 64 },
+				"minecraft:totem_of_undying",
+				"minecraft:oak_boat",
+				"minecraft:water_bucket"
+			]
+		},
+		"experienced": {
 			"head": "minecraft:iron_helmet",
 			"chest": "minecraft:iron_chestplate",
 			"legs": "minecraft:iron_leggings",
 			"feet": "minecraft:iron_boots",
 			"offhand": "minecraft:shield",
-			"hotbar": [
+			"items": [
 				"minecraft:iron_sword",
+				"minecraft:iron_axe",
+				"minecraft:iron_pickaxe",
 				"minecraft:bow",
 				{ "item": "minecraft:arrow", "count": 32 },
-				{ "item": "minecraft:ender_pearl", "count": 4 },
-				{ "item": "minecraft:cobblestone", "count": 16 }
-			]
-		},
-		"experienced": {
-			"head": { "item": "minecraft:diamond_helmet", "enchantments": { "minecraft:protection": 2 } },
-			"chest": { "item": "minecraft:diamond_chestplate", "enchantments": { "minecraft:protection": 2 } },
-			"legs": { "item": "minecraft:diamond_leggings", "enchantments": { "minecraft:protection": 2 } },
-			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 2, "minecraft:feather_falling": 2 } },
-			"offhand": "minecraft:shield",
-			"hotbar": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 2, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:arrow", "count": 32 },
+				{ "item": "minecraft:iron_ingot", "count": 16 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "item": "minecraft:oak_planks", "count": 64 },
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
+				"minecraft:oak_boat",
+				"minecraft:bundle",
+				{ "item": "minecraft:firework_rocket", "count": 64 },
 				{ "item": "minecraft:ender_pearl", "count": 8 },
-				{ "item": "minecraft:golden_apple", "count": 4 }
+				"minecraft:water_bucket"
 			]
 		},
 		"pro": {
-			"head": { "item": "minecraft:netherite_helmet", "enchantments": { "minecraft:protection": 4 } },
-			"chest": { "item": "minecraft:netherite_chestplate", "enchantments": { "minecraft:protection": 4 } },
-			"legs": { "item": "minecraft:netherite_leggings", "enchantments": { "minecraft:protection": 4 } },
-			"feet": { "item": "minecraft:netherite_boots", "enchantments": { "minecraft:protection": 4, "minecraft:feather_falling": 4 } },
-			"offhand": "minecraft:totem_of_undying",
-			"hotbar": [
-				{ "item": "minecraft:netherite_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
-				{ "item": "minecraft:arrow", "count": 1 },
-				{ "item": "minecraft:ender_pearl", "count": 16 },
-				{ "item": "minecraft:golden_apple", "count": 4 },
-				{ "item": "minecraft:firework_rocket", "count": 16 }
+			"items": [
+				"minecraft:stone_pickaxe",
+				"minecraft:stone_axe",
+				{ "item": "minecraft:oak_planks", "count": 32 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:oak_boat",
+				{ "item": "minecraft:bread", "count": 16 },
+				"minecraft:water_bucket"
+			]
+		},
+		"speedrunner": {
+			"items": [
+				"minecraft:wooden_pickaxe",
+				"minecraft:wooden_axe",
+				{ "item": "minecraft:cobblestone", "count": 32 },
+				{ "item": "minecraft:apple", "count": 3 },
+				"minecraft:water_bucket"
 			]
 		}
 	}

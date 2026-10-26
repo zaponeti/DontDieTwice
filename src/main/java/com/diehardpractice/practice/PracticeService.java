@@ -6,6 +6,7 @@ import com.diehardpractice.network.PracticePackets;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -21,7 +22,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,6 +48,10 @@ public final class PracticeService {
 	private static final int MAX_BASTION_ATTEMPTS = 6;
 	private static final int BASTION_SEARCH_JUMP = 2500;
 
+	// Completion goals: how much of the structure's signature loot counts as "done" and auto-stops the timer.
+	private static final int BASTION_ENDER_PEARLS_GOAL = 16;
+	private static final int FORTRESS_BLAZE_RODS_GOAL = 8;
+
 	/** Runs the full practice setup: clear inventory, give gear, teleport, (re)start timer. Used for the initial join and for restarts. */
 	public static void applySetup(MinecraftServer server, ServerPlayer player, PracticeType type, GearTier tier, BastionSubtype bastionSubtype) {
 		giveGear(server, player, type, tier);
@@ -62,9 +69,10 @@ public final class PracticeService {
 		player.setItemSlot(EquipmentSlot.LEGS, loadout.legs());
 		player.setItemSlot(EquipmentSlot.FEET, loadout.feet());
 		player.setItemSlot(EquipmentSlot.OFFHAND, loadout.offhand());
-		List<ItemStack> hotbar = loadout.hotbar();
-		for (int i = 0; i < hotbar.size() && i < 9; i++) {
-			player.getInventory().setItem(i, hotbar.get(i));
+		List<ItemStack> items = loadout.items();
+		int inventorySize = player.getInventory().getContainerSize();
+		for (int i = 0; i < items.size() && i < inventorySize; i++) {
+			player.getInventory().setItem(i, items.get(i));
 		}
 	}
 
@@ -286,6 +294,48 @@ public final class PracticeService {
 		EndPlatformFeature.createEndPlatform(end, ServerLevel.END_SPAWN_POINT.below(), true);
 		Vec3 landing = ServerLevel.END_SPAWN_POINT.getBottomCenter().subtract(0.0, 1.0, 0.0);
 		player.teleportTo(end, landing.x(), landing.y(), landing.z(), net.minecraft.core.Direction.WEST.toYRot(), 0.0F);
+	}
+
+	/**
+	 * Auto-stops the raid timer once the player has the structure's signature loot (or, for the dragon, the kill
+	 * advancement) - same idea as a speedrun split, so you don't have to remember to run /practice stop yourself.
+	 */
+	public static void checkCompletion(ServerPlayer player, PracticeType type, PracticeWorldState state) {
+		if (!state.isTimerRunning()) {
+			return;
+		}
+
+		boolean complete = switch (type) {
+			case DRAGON -> hasAdvancement(player, "end/kill_dragon");
+			case BASTION -> countItem(player, Items.ENDER_PEARL) >= BASTION_ENDER_PEARLS_GOAL;
+			case FORTRESS -> countItem(player, Items.BLAZE_ROD) >= FORTRESS_BLAZE_RODS_GOAL;
+			case END_CITY -> hasAdvancement(player, "end/elytra"); // "Sky's the Limit" - picking up an Elytra
+		};
+
+		if (complete) {
+			state.stopTimer();
+			syncState(player, state);
+			player.sendSystemMessage(Component.translatable("diehardpractice.practice_complete"));
+		}
+	}
+
+	private static boolean hasAdvancement(ServerPlayer player, String path) {
+		AdvancementHolder advancement = player.getServer().getAdvancements().get(ResourceLocation.withDefaultNamespace(path));
+		return advancement != null && player.getAdvancements().getOrStartProgress(advancement).isDone();
+	}
+
+	private static int countItem(ServerPlayer player, Item item) {
+		int count = 0;
+		for (ItemStack stack : player.getInventory().items) {
+			count += stack.is(item) ? stack.getCount() : 0;
+		}
+		for (ItemStack stack : player.getInventory().armor) {
+			count += stack.is(item) ? stack.getCount() : 0;
+		}
+		for (ItemStack stack : player.getInventory().offhand) {
+			count += stack.is(item) ? stack.getCount() : 0;
+		}
+		return count;
 	}
 
 	public static void syncState(ServerPlayer player, PracticeWorldState state) {
