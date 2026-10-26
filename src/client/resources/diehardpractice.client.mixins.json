@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"package": "com.diehardpractice.client.mixin",
-	"compatibilityLevel": "JAVA_21",
+	"compatibilityLevel": "JAVA_${java}",
 	"client": [
 		"CreateWorldScreenInvoker",
 		"CreateWorldScreenMixin",
