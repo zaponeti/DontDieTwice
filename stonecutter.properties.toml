@@ -1,6 +1,6 @@
 # See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
 mod.id = "diehardpractice"
-mod.name = "DieHardPractice"
+mod.name = "Don't Die Twice - Practice mode"
 mod.group = "com.diehardpractice"
 mod.version = "1.0.0"
 

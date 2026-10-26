@@ -1,4 +1,4 @@
-# DieHardPractice
+# Don't Die Twice - Practice mode
 
 A Fabric mod for practicing Minecraft speedrun structures — Bastion Remnants, Nether Fortresses, the Ender Dragon
 fight, and End Cities — without the overworld grind. Pick a target and a gear tier from the world-creation screen,
@@ -29,7 +29,7 @@ and the mod drops you right next to it with a matching loadout and a raid timer 
 
 1. Install [Fabric Loader](https://fabricmc.net/use/) for Minecraft 1.21.1.
 2. Download [Fabric API](https://modrinth.com/mod/fabric-api) for 1.21.1 and drop it in your `mods` folder.
-3. Download the latest DieHardPractice release and drop it in the same `mods` folder.
+3. Download the latest Don't Die Twice - Practice mode release and drop it in the same `mods` folder.
 
 ## Usage
 
@@ -95,7 +95,7 @@ Requires JDK 21 to compile the mod itself; the Fabric Loom build tooling current
 
 ## Roadmap
 
-DieHardPractice currently covers Bastion Remnants, Nether Fortresses, the Ender Dragon fight, and End Cities.
+Don't Die Twice - Practice mode currently covers Bastion Remnants, Nether Fortresses, the Ender Dragon fight, and End Cities.
 More raid-practice targets are planned for future releases — likely candidates include the Ancient City, Trial
 Chambers, the Woodland Mansion, and Ocean Monuments. Suggestions are welcome.
 

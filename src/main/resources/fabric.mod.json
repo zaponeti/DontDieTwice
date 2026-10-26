@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "diehardpractice",
 	"version": "${version}",
-	"name": "DieHardPractice",
+	"name": "Don't Die Twice - Practice mode",
 	"description": "Practice Bastions, Fortresses, the Ender Dragon, and End Cities instantly - pick a target and a gear tier, get teleported in with a raid timer running.",
 	"authors": [
 		"Zaponeti"

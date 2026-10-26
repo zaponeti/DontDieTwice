@@ -18,7 +18,7 @@ render standard Markdown, so the body works as-is on either one.
 
 ### Jump straight into the fight
 
-DieHardPractice turns Minecraft's world-creation screen into a structure-practice launcher. Pick what you want to
+Don't Die Twice - Practice mode turns Minecraft's world-creation screen into a structure-practice launcher. Pick what you want to
 work on, pick how much of a head start you want, and go — no seed-hunting, no overworld walk, no re-gearing by
 hand.
 
@@ -73,7 +73,7 @@ Chambers, the Woodland Mansion, and Ocean Monuments.
 
 ### Notes
 
-DieHardPractice is built around singleplayer practice runs. It doesn't need an existing world or any particular
+Don't Die Twice - Practice mode is built around singleplayer practice runs. It doesn't need an existing world or any particular
 seed to work — just click Practice and go.
 
 ---
