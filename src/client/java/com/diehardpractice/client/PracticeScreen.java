@@ -6,9 +6,9 @@ import com.diehardpractice.practice.GearTier;
 import com.diehardpractice.practice.PracticeType;
 import java.util.EnumMap;
 import java.util.Map;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
@@ -19,6 +19,9 @@ import org.jetbrains.annotations.Nullable;
  * Standalone practice-setup screen: pick a structure, gear tier, and (for Bastion) a variant, then hand off to
  * vanilla's own (unmodified) Create World screen. Kept as a plain Screen - not a Mixin into any vanilla class -
  * so it stays stable across Minecraft versions instead of depending on internal screen layout/field names.
+ * Labels use vanilla's own StringWidget rather than a custom render() override, since Minecraft 26.1+ reworked
+ * screen rendering into a retained-mode model (GuiGraphics is gone) that StringWidget already handles
+ * internally - a custom render() override would have to be rewritten against that new API too.
  */
 public final class PracticeScreen extends Screen {
 	private static final int FIELD_WIDTH = 210;
@@ -38,10 +41,6 @@ public final class PracticeScreen extends Screen {
 	private BastionSubtype selectedBastionSubtype = BastionSubtype.ANY;
 	private Difficulty selectedDifficulty = Difficulty.NORMAL;
 
-	private int nameLabelY;
-	private int structureLabelY;
-	private int equipmentLabelY;
-
 	public PracticeScreen(Screen parent) {
 		super(Component.translatable("diehardpractice.tab_title"));
 		this.parent = parent;
@@ -51,9 +50,12 @@ public final class PracticeScreen extends Screen {
 	protected void init() {
 		int centerX = this.width / 2;
 		int left = centerX - FIELD_WIDTH / 2;
-		int y = 24;
+		int y = 6;
 
-		this.nameLabelY = y;
+		this.addRenderableWidget(new StringWidget(left, y, FIELD_WIDTH, 12, this.title, this.font));
+		y += ROW_HEIGHT;
+
+		this.addRenderableWidget(new StringWidget(left, y, FIELD_WIDTH, 12, Component.translatable("selectWorld.enterName"), this.font));
 		y += ROW_HEIGHT;
 
 		this.nameBox = this.addRenderableWidget(new EditBox(this.font, left, y, FIELD_WIDTH, 20, Component.translatable("selectWorld.enterName")));
@@ -65,7 +67,7 @@ public final class PracticeScreen extends Screen {
 		);
 		y += ROW_HEIGHT + ROW_HEIGHT / 2;
 
-		this.structureLabelY = y;
+		this.addRenderableWidget(new StringWidget(left, y, FIELD_WIDTH, 12, Component.translatable("diehardpractice.structure_label"), this.font));
 		y += ROW_HEIGHT;
 
 		for (PracticeType type : PracticeType.values()) {
@@ -74,7 +76,7 @@ public final class PracticeScreen extends Screen {
 			y += ROW_HEIGHT;
 		}
 
-		this.equipmentLabelY = y;
+		this.addRenderableWidget(new StringWidget(left, y, FIELD_WIDTH, 12, Component.translatable("diehardpractice.equipment_label"), this.font));
 		y += ROW_HEIGHT;
 
 		for (GearTier tier : GearTier.values()) {
@@ -94,15 +96,6 @@ public final class PracticeScreen extends Screen {
 		y += ROW_HEIGHT;
 
 		this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), b -> this.onClose()).bounds(left, y, FIELD_WIDTH, 20).build());
-	}
-
-	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-		super.render(graphics, mouseX, mouseY, partialTick);
-		graphics.drawCenteredString(this.font, this.title, this.width / 2, 6, 0xFFFFFF);
-		graphics.drawCenteredString(this.font, Component.translatable("selectWorld.enterName"), this.width / 2, this.nameLabelY + 6, 0xFFFFFF);
-		graphics.drawCenteredString(this.font, Component.translatable("diehardpractice.structure_label"), this.width / 2, this.structureLabelY + 6, 0xFFFFFF);
-		graphics.drawCenteredString(this.font, Component.translatable("diehardpractice.equipment_label"), this.width / 2, this.equipmentLabelY + 6, 0xFFFFFF);
 	}
 
 	private void selectType(PracticeType type) {
@@ -149,8 +142,13 @@ public final class PracticeScreen extends Screen {
 		PracticeClientState.setPending(this.selectedType, this.selectedTier, this.selectedBastionSubtype);
 		// Skip the vanilla Create World screen entirely - create the world immediately with the name/
 		// difficulty picked here, same trick PracticeRestart uses to recreate a world without re-prompting.
+		//? if >=26.1 {
+		/*CreateWorldScreen.openFresh(this.minecraft, () -> this.minecraft.gui.setScreen(this.parent));
+		if (this.minecraft.gui.screen() instanceof CreateWorldScreen createWorldScreen) {
+		*///?} else {
 		CreateWorldScreen.openFresh(this.minecraft, this.parent);
 		if (this.minecraft.screen instanceof CreateWorldScreen createWorldScreen) {
+		//?}
 			String name = this.nameBox.getValue().isBlank() ? "New Practice" : this.nameBox.getValue();
 			createWorldScreen.getUiState().setName(name);
 			createWorldScreen.getUiState().setDifficulty(this.selectedDifficulty);
@@ -160,7 +158,11 @@ public final class PracticeScreen extends Screen {
 
 	@Override
 	public void onClose() {
+		//? if >=26.1 {
+		/*this.minecraft.gui.setScreen(this.parent);
+		*///?} else {
 		this.minecraft.setScreen(this.parent);
+		//?}
 	}
 
 	private static Component label(Component base, boolean selected) {

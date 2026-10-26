@@ -5,19 +5,24 @@ import com.diehardpractice.practice.PracticeType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+//? if >=26.1 {
+/*import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+*///?} else {
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+//?}
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -52,11 +57,15 @@ public class DieHardPracticeClient implements ClientModInitializer {
 			}
 		});
 
+		//? if >=26.1 {
+		/*HudElementRegistry.addLast(ResourceLocation.fromNamespaceAndPath("diehardpractice", "raid_timer"), DieHardPracticeClient::renderHud);
+		*///?} else {
 		HudRenderCallback.EVENT.register(DieHardPracticeClient::renderHud);
+		//?}
 
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
 			if (screen instanceof SelectWorldScreen selectWorldScreen) {
-				List<AbstractWidget> buttons = Screens.getButtons(screen);
+				List<AbstractWidget> buttons = widgetsOf(screen);
 				// Join vanilla's "Play Selected World"/"Create New World" row instead of adding a new one below
 				// it - there's barely any vertical gap between that row, the scrollable world list above it, and
 				// the "Edit"/"Delete"/"Back" row below it, so an extra row collides with one or the other.
@@ -91,7 +100,7 @@ public class DieHardPracticeClient implements ClientModInitializer {
 					createButton.setX(slot1X);
 					createButton.setWidth(compactWidth);
 					buttons.add(
-						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> openPracticeScreen(client, selectWorldScreen))
 							.bounds(slot2X, rowY, compactWidth, 20)
 							.build()
 					);
@@ -101,7 +110,7 @@ public class DieHardPracticeClient implements ClientModInitializer {
 					int x = rowRightEdge + 4;
 					int buttonWidth = Math.max(80, Math.min(200, screen.width - 4 - x));
 					buttons.add(
-						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(selectWorldScreen)))
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> openPracticeScreen(client, selectWorldScreen))
 							.bounds(x, rowY, buttonWidth, 20)
 							.build()
 					);
@@ -109,7 +118,7 @@ public class DieHardPracticeClient implements ClientModInitializer {
 			} else if (screen instanceof TitleScreen titleScreen) {
 				// Reachable from the title screen too: if no worlds exist yet, vanilla skips SelectWorldScreen
 				// and jumps straight to CreateWorldScreen, so the button there would never even be seen.
-				List<AbstractWidget> buttons = Screens.getButtons(screen);
+				List<AbstractWidget> buttons = widgetsOf(screen);
 				// Excludes the "Copyright Mojang AB..." corner link (a 10-tall PlainTextButton sitting right at
 				// the bottom of the screen) - without this filter it looked like the "last" widget and pushed
 				// our button below the visible screen entirely. Real menu buttons are all 20 tall.
@@ -129,20 +138,20 @@ public class DieHardPracticeClient implements ClientModInitializer {
 						}
 					}
 					buttons.add(
-						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> openPracticeScreen(client, titleScreen))
 							.bounds(screen.width / 2 - 100, singleplayerY + rowHeight, 200, 20)
 							.build()
 					);
 				} else {
 					int belowLastButton = realButtons.stream().mapToInt(widget -> widget.getY() + widget.getHeight()).max().orElse(screen.height / 4) + 4;
 					buttons.add(
-						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> client.setScreen(new PracticeScreen(titleScreen)))
+						Button.builder(Component.translatable("diehardpractice.tab_title"), b -> openPracticeScreen(client, titleScreen))
 							.bounds(screen.width / 2 - 100, belowLastButton, 200, 20)
 							.build()
 					);
 				}
 			} else if (screen instanceof PauseScreen pauseScreen && pauseScreen.showsPauseMenu() && PracticeClientState.hasPractice) {
-				Screens.getButtons(screen)
+				widgetsOf(screen)
 					.add(
 						Button.builder(Component.translatable("diehardpractice.restart_button"), b -> PracticeRestart.perform(client))
 							.bounds(screen.width / 2 - 100, screen.height - 28, 200, 20)
@@ -152,7 +161,76 @@ public class DieHardPracticeClient implements ClientModInitializer {
 		});
 	}
 
-	private static void renderHud(GuiGraphics graphics, net.minecraft.client.DeltaTracker tickCounter) {
+	private static List<AbstractWidget> widgetsOf(Screen screen) {
+		//? if >=26.1 {
+		/*return Screens.getWidgets(screen);
+		*///?} else {
+		return Screens.getButtons(screen);
+		//?}
+	}
+
+	private static void openPracticeScreen(Minecraft client, Screen parent) {
+		//? if >=26.1 {
+		/*client.gui.setScreen(new PracticeScreen(parent));
+		*///?} else {
+		client.setScreen(new PracticeScreen(parent));
+		//?}
+	}
+
+	//? if >=26.1 {
+	/*private static void renderHud(net.minecraft.client.gui.GuiGraphicsExtractor graphics, net.minecraft.client.DeltaTracker tickCounter) {
+		if (!PracticeClientState.hasPractice) {
+			return;
+		}
+
+		Minecraft minecraft = Minecraft.getInstance();
+		long displayTicks = PracticeClientState.timerTicks;
+		if (PracticeClientState.timerRunning) {
+			long elapsedNanos = System.nanoTime() - PracticeClientState.timerSyncedAtNanos;
+			displayTicks += elapsedNanos / 50_000_000L; // 50ms per tick
+		}
+
+		long totalMillis = displayTicks * 50L;
+		long hours = totalMillis / 3_600_000L;
+		long minutes = totalMillis / 60_000L % 60L;
+		long seconds = totalMillis / 1000L % 60L;
+		long centis = totalMillis / 10L % 100L;
+		String timeText = hours > 0 ? String.format("%d:%02d:%02d.%02d", hours, minutes, seconds, centis) : String.format("%d:%02d.%02d", minutes, seconds, centis);
+
+		PracticeType type = PracticeClientState.currentType;
+		int centerX = graphics.guiWidth() / 2;
+		int boxHeight = 24;
+		int timeBoxWidth = 105;
+		int iconBoxWidth = boxHeight;
+		int totalWidth = timeBoxWidth + iconBoxWidth;
+		int left = centerX - totalWidth / 2;
+		int top = HUD_TOP_Y;
+		int right = left + totalWidth;
+		int bottom = top + boxHeight;
+		int dividerX = left + timeBoxWidth;
+		int borderColor = 0xFF3F3F3F;
+
+		graphics.fill(left, top, right, bottom, 0xB0000000);
+		graphics.fill(left, top, right, top + 1, borderColor);
+		graphics.fill(left, bottom - 1, right, bottom, borderColor);
+		graphics.fill(left, top, left + 1, bottom, borderColor);
+		graphics.fill(right - 1, top, right, bottom, borderColor);
+		graphics.fill(dividerX, top, dividerX + 1, bottom, borderColor);
+
+		// Retained-mode rendering (GuiGraphicsExtractor) doesn't expose the same pose-stack push/scale/pop
+		// trick used on 1.21.1 to draw the digits bigger, so this draws at normal size here instead of chasing
+		// the new Matrix3x2fStack API for one cosmetic effect. centeredText also needs an explicit alpha byte -
+		// unlike the old drawCenteredString, a 0x00 alpha here renders fully transparent instead of opaque.
+		int timeColor = 0xFF000000 | (PracticeClientState.timerRunning ? 0x55FF55 : 0xAAAAAA);
+		graphics.centeredText(minecraft.font, timeText, left + timeBoxWidth / 2, top + boxHeight / 2 - 4, timeColor);
+
+		graphics.item(new ItemStack(iconFor(type)), dividerX + (iconBoxWidth - 16) / 2, top + (boxHeight - 16) / 2);
+
+		Component infoText = Component.empty().append(type.displayName()).append(" · ").append(PracticeClientState.currentTier.displayName());
+		graphics.centeredText(minecraft.font, infoText, centerX, bottom + 4, 0xFFDDDDDD);
+	}
+	*///?} else {
+	private static void renderHud(net.minecraft.client.gui.GuiGraphics graphics, net.minecraft.client.DeltaTracker tickCounter) {
 		if (!PracticeClientState.hasPractice) {
 			return;
 		}
@@ -203,6 +281,7 @@ public class DieHardPracticeClient implements ClientModInitializer {
 		Component infoText = Component.empty().append(type.displayName()).append(" · ").append(PracticeClientState.currentTier.displayName());
 		graphics.drawCenteredString(minecraft.font, infoText, centerX, bottom + 4, 0xDDDDDD);
 	}
+	//?}
 
 	private static Item iconFor(PracticeType type) {
 		return switch (type) {

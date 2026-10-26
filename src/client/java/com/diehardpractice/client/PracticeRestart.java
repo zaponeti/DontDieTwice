@@ -26,18 +26,34 @@ public final class PracticeRestart {
 			return;
 		}
 
+		//? if >=26.1 {
+		/*Long seed = minecraft.getSingleplayerServer() != null ? minecraft.getSingleplayerServer().overworld().getSeed() : null;
+		*///?} else {
 		Long seed = minecraft.getSingleplayerServer() != null ? minecraft.getSingleplayerServer().getWorldData().worldGenOptions().seed() : null;
+		//?}
 
 		if (minecraft.level != null) {
+			//? if >=26.1 {
+			/*minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
+			minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false);
+			*///?} else {
 			minecraft.level.disconnect();
 			minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
+			//?}
 		}
 
 		TitleScreen titleScreen = new TitleScreen();
+		//? if >=26.1 {
+		/*minecraft.gui.setScreen(titleScreen);
+
+		CreateWorldScreen.openFresh(minecraft, () -> minecraft.gui.setScreen(titleScreen));
+		CreateWorldScreen screen = (CreateWorldScreen) minecraft.gui.screen();
+		*///?} else {
 		minecraft.setScreen(titleScreen);
 
 		CreateWorldScreen.openFresh(minecraft, titleScreen);
 		CreateWorldScreen screen = (CreateWorldScreen) minecraft.screen;
+		//?}
 		if (seed != null) {
 			screen.getUiState().setSeed(String.valueOf(seed));
 		}

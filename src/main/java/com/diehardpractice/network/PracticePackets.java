@@ -100,8 +100,14 @@ public final class PracticePackets {
 	}
 
 	public static void register() {
+		//? if >=26.1 {
+		/*PayloadTypeRegistry.serverboundPlay().register(SelectPracticePayload.TYPE, SelectPracticePayload.STREAM_CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(PracticeStateSyncPayload.TYPE, PracticeStateSyncPayload.STREAM_CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(RequestClientRestartPayload.TYPE, RequestClientRestartPayload.STREAM_CODEC);
+		*///?} else {
 		PayloadTypeRegistry.playC2S().register(SelectPracticePayload.TYPE, SelectPracticePayload.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(PracticeStateSyncPayload.TYPE, PracticeStateSyncPayload.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(RequestClientRestartPayload.TYPE, RequestClientRestartPayload.STREAM_CODEC);
+		//?}
 	}
 }

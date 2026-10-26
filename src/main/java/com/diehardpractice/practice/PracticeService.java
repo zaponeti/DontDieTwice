@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -97,11 +98,20 @@ public final class PracticeService {
 			return;
 		}
 
+		//? if >=26.1 {
+		/*Registry<Structure> registry = targetLevel.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+		Holder<Structure> holder = registry.getOrThrow(BuiltinStructures.BASTION_REMNANT);
+		*///?} else {
 		Registry<Structure> registry = targetLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
 		Holder<Structure> holder = registry.getHolderOrThrow(BuiltinStructures.BASTION_REMNANT);
+		//?}
 		HolderSet<Structure> holderSet = HolderSet.direct(holder);
 
+		//? if >=26.1 {
+		/*BlockPos origin = targetLevel.getRespawnData().pos();
+		*///?} else {
 		BlockPos origin = targetLevel.getSharedSpawnPos();
+		//?}
 		StructureStart matchedStart = null;
 		StructureStart lastStart = null;
 
@@ -114,7 +124,12 @@ public final class PracticeService {
 			}
 
 			BlockPos pos = result.getFirst();
+			//? if >=26.1 {
+			/*SectionPos sectionPos = SectionPos.of(pos);
+			List<StructureStart> starts = targetLevel.structureManager().startsForStructure(sectionPos.x(), sectionPos.z(), holder.value());
+			*///?} else {
 			List<StructureStart> starts = targetLevel.structureManager().startsForStructure(SectionPos.of(pos), holder.value());
+			//?}
 			if (starts.isEmpty()) {
 				break;
 			}
@@ -178,10 +193,19 @@ public final class PracticeService {
 			return;
 		}
 
+		//? if >=26.1 {
+		/*Registry<Structure> registry = targetLevel.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+		Holder<Structure> holder = registry.getOrThrow(structureKey);
+		*///?} else {
 		Registry<Structure> registry = targetLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
 		Holder<Structure> holder = registry.getHolderOrThrow(structureKey);
+		//?}
 		HolderSet<Structure> holderSet = HolderSet.direct(holder);
+		//? if >=26.1 {
+		/*BlockPos origin = targetLevel.getRespawnData().pos();
+		*///?} else {
 		BlockPos origin = targetLevel.getSharedSpawnPos();
+		//?}
 		Pair<BlockPos, Holder<Structure>> result = targetLevel.getChunkSource()
 			.getGenerator()
 			.findNearestMapStructure(targetLevel, holderSet, origin, STRUCTURE_SEARCH_RADIUS, false);
@@ -191,7 +215,12 @@ public final class PracticeService {
 		}
 
 		BlockPos approx = result.getFirst();
+		//? if >=26.1 {
+		/*SectionPos sectionPos = SectionPos.of(approx);
+		List<StructureStart> starts = targetLevel.structureManager().startsForStructure(sectionPos.x(), sectionPos.z(), holder.value());
+		*///?} else {
 		List<StructureStart> starts = targetLevel.structureManager().startsForStructure(SectionPos.of(approx), holder.value());
+		//?}
 		if (starts.isEmpty()) {
 			player.sendSystemMessage(Component.translatable("diehardpractice.structure_not_found"));
 			return;
@@ -211,11 +240,19 @@ public final class PracticeService {
 		if (landing == null) {
 			int centerX = (box.minX() + box.maxX()) / 2;
 			int centerZ = (box.minZ() + box.maxZ()) / 2;
+			//? if >=26.1 {
+			/*landing = new BlockPos(centerX, Math.min(100, targetLevel.getMaxY() - 10), centerZ);
+			*///?} else {
 			landing = new BlockPos(centerX, Math.min(100, targetLevel.getMaxBuildHeight() - 10), centerZ);
+			//?}
 			player.sendSystemMessage(Component.translatable("diehardpractice.unsafe_landing"));
 		}
 
+		//? if >=26.1 {
+		/*player.teleportTo(targetLevel, landing.getX() + 0.5, landing.getY(), landing.getZ() + 0.5, java.util.Set.of(), player.getYRot(), player.getXRot(), true);
+		*///?} else {
 		player.teleportTo(targetLevel, landing.getX() + 0.5, landing.getY(), landing.getZ() + 0.5, player.getYRot(), player.getXRot());
+		//?}
 		if (fireResistance) {
 			player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * 30, 0));
 		}
@@ -232,8 +269,13 @@ public final class PracticeService {
 	private static BlockPos findSafeLanding(ServerLevel level, BoundingBox box) {
 		int centerX = (box.minX() + box.maxX()) / 2;
 		int centerZ = (box.minZ() + box.maxZ()) / 2;
+		//? if >=26.1 {
+		/*int top = Math.min(box.maxY() + 20, level.getMaxY() - 2);
+		int bottom = Math.max(box.minY() - 15, level.getMinY() + 1);
+		*///?} else {
 		int top = Math.min(box.maxY() + 20, level.getMaxBuildHeight() - 2);
 		int bottom = Math.max(box.minY() - 15, level.getMinBuildHeight() + 1);
+		//?}
 
 		int buffer = 12;
 		int[][] outsideColumns = {
@@ -292,8 +334,16 @@ public final class PracticeService {
 
 		// Mirrors vanilla's own obsidian-platform arrival logic (see EndPortalBlock#getPortalDestination).
 		EndPlatformFeature.createEndPlatform(end, ServerLevel.END_SPAWN_POINT.below(), true);
+		//? if >=26.1 {
+		/*Vec3 landing = Vec3.atBottomCenterOf(ServerLevel.END_SPAWN_POINT).subtract(0.0, 1.0, 0.0);
+		*///?} else {
 		Vec3 landing = ServerLevel.END_SPAWN_POINT.getBottomCenter().subtract(0.0, 1.0, 0.0);
+		//?}
+		//? if >=26.1 {
+		/*player.teleportTo(end, landing.x(), landing.y(), landing.z(), java.util.Set.of(), net.minecraft.core.Direction.WEST.toYRot(), 0.0F, true);
+		*///?} else {
 		player.teleportTo(end, landing.x(), landing.y(), landing.z(), net.minecraft.core.Direction.WEST.toYRot(), 0.0F);
+		//?}
 	}
 
 	/**
@@ -320,19 +370,18 @@ public final class PracticeService {
 	}
 
 	private static boolean hasAdvancement(ServerPlayer player, String path) {
-		AdvancementHolder advancement = player.getServer().getAdvancements().get(ResourceLocation.withDefaultNamespace(path));
+		AdvancementHolder advancement = player.level().getServer().getAdvancements().get(ResourceLocation.withDefaultNamespace(path));
 		return advancement != null && player.getAdvancements().getOrStartProgress(advancement).isDone();
 	}
 
+	// Container.getItem(int) covers every slot (hotbar, main, armor, offhand) via the plain public index-based
+	// API - avoids depending on Inventory's internal item/armor/offhand field layout, which changed between
+	// versions (armor and offhand moved out of Inventory entirely and into an EntityEquipment component).
 	private static int countItem(ServerPlayer player, Item item) {
 		int count = 0;
-		for (ItemStack stack : player.getInventory().items) {
-			count += stack.is(item) ? stack.getCount() : 0;
-		}
-		for (ItemStack stack : player.getInventory().armor) {
-			count += stack.is(item) ? stack.getCount() : 0;
-		}
-		for (ItemStack stack : player.getInventory().offhand) {
+		Inventory inventory = player.getInventory();
+		for (int i = 0; i < inventory.getContainerSize(); i++) {
+			ItemStack stack = inventory.getItem(i);
 			count += stack.is(item) ? stack.getCount() : 0;
 		}
 		return count;

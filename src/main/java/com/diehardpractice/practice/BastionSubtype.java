@@ -1,5 +1,6 @@
 package com.diehardpractice.practice;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -10,6 +11,8 @@ public enum BastionSubtype {
 	STABLES("diehardpractice.bastion_subtype.stables", "bastion/hoglin_stable/"),
 	TREASURE("diehardpractice.bastion_subtype.treasure", "bastion/treasure/"),
 	BRIDGE("diehardpractice.bastion_subtype.bridge", "bastion/bridge/");
+
+	public static final Codec<BastionSubtype> CODEC = Codec.STRING.xmap(BastionSubtype::valueOf, BastionSubtype::name);
 
 	private final String translationKey;
 	private final String startingPiecePrefix;

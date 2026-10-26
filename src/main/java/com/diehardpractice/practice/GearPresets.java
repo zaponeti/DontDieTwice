@@ -98,7 +98,11 @@ public final class GearPresets {
 		JsonObject object = element.getAsJsonObject();
 		ItemStack stack;
 		if (object.has("potion")) {
+			//? if >=26.1 {
+			/*Holder<Potion> potion = BuiltInRegistries.POTION.getOrThrow(ResourceKey.create(Registries.POTION, ResourceLocation.parse(object.get("potion").getAsString())));
+			*///?} else {
 			Holder<Potion> potion = BuiltInRegistries.POTION.getHolderOrThrow(ResourceKey.create(Registries.POTION, ResourceLocation.parse(object.get("potion").getAsString())));
+			//?}
 			stack = PotionContents.createItemStack(Items.POTION, potion);
 		} else {
 			stack = new ItemStack(itemFromId(object.get("item").getAsString()));
@@ -111,8 +115,13 @@ public final class GearPresets {
 		if (object.has("enchantments")) {
 			JsonObject enchantments = object.getAsJsonObject("enchantments");
 			for (Map.Entry<String, JsonElement> entry : enchantments.entrySet()) {
+				//? if >=26.1 {
+				/*Holder<Enchantment> enchantment = registryAccess.lookupOrThrow(Registries.ENCHANTMENT)
+					.getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(entry.getKey())));
+				*///?} else {
 				Holder<Enchantment> enchantment = registryAccess.registryOrThrow(Registries.ENCHANTMENT)
 					.getHolderOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(entry.getKey())));
+				//?}
 				stack.enchant(enchantment, entry.getValue().getAsInt());
 			}
 		}
@@ -121,7 +130,11 @@ public final class GearPresets {
 	}
 
 	private static Item itemFromId(String id) {
+		//? if >=26.1 {
+		/*return BuiltInRegistries.ITEM.get(ResourceLocation.parse(id)).map(Holder::value).orElse(Items.AIR);
+		*///?} else {
 		return BuiltInRegistries.ITEM.get(ResourceLocation.parse(id));
+		//?}
 	}
 
 	private static JsonObject ensureLoaded() {

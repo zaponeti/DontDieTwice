@@ -1,11 +1,23 @@
 package com.diehardpractice.practice;
 
+//? if >=26.1 {
+/*import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Optional;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
+import org.jetbrains.annotations.Nullable;
+*///?} else {
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
+//?}
 
 /** Per-world practice selection, applied-once flag and raid timer, persisted in the overworld's save data. */
 public class PracticeWorldState extends SavedData {
@@ -20,6 +32,38 @@ public class PracticeWorldState extends SavedData {
 	private long timerTicks;
 	private boolean timerRunning;
 
+	//? if >=26.1 {
+	/*// SavedData's own (de)serialization moved entirely onto a Codec + SavedDataType in 1.21.11+/26.x - there
+	// are no more save()/load() overrides to implement, the framework calls the Codec for us.
+	private static final Codec<PracticeWorldState> CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+				PracticeType.CODEC.optionalFieldOf("Type").forGetter(state -> Optional.ofNullable(state.type)),
+				GearTier.CODEC.optionalFieldOf("Tier").forGetter(state -> Optional.ofNullable(state.tier)),
+				BastionSubtype.CODEC.fieldOf("BastionSubtype").forGetter(state -> state.bastionSubtype),
+				Codec.BOOL.fieldOf("SetupDone").forGetter(state -> state.setupDone),
+				Codec.LONG.fieldOf("TimerTicks").forGetter(state -> state.timerTicks),
+				Codec.BOOL.fieldOf("TimerRunning").forGetter(state -> state.timerRunning)
+			)
+			.apply(instance, (type, tier, bastionSubtype, setupDone, timerTicks, timerRunning) -> {
+				PracticeWorldState state = new PracticeWorldState();
+				state.type = type.orElse(null);
+				state.tier = tier.orElse(null);
+				state.bastionSubtype = bastionSubtype;
+				state.setupDone = setupDone;
+				state.timerTicks = timerTicks;
+				state.timerRunning = timerRunning;
+				return state;
+			})
+	);
+
+	private static final SavedDataType<PracticeWorldState> TYPE = new SavedDataType<>(
+		ResourceLocation.withDefaultNamespace(ID), PracticeWorldState::new, CODEC, DataFixTypes.LEVEL
+	);
+
+	public static PracticeWorldState get(ServerLevel overworld) {
+		return overworld.getDataStorage().computeIfAbsent(TYPE);
+	}
+	*///?} else {
 	public static SavedData.Factory<PracticeWorldState> factory() {
 		return new SavedData.Factory<>(PracticeWorldState::new, PracticeWorldState::load, DataFixTypes.LEVEL);
 	}
@@ -27,6 +71,7 @@ public class PracticeWorldState extends SavedData {
 	public static PracticeWorldState get(ServerLevel overworld) {
 		return overworld.getDataStorage().computeIfAbsent(factory(), ID);
 	}
+	//?}
 
 	@Nullable
 	public PracticeType getType() {
@@ -88,6 +133,7 @@ public class PracticeWorldState extends SavedData {
 		}
 	}
 
+	//? if <26.1 {
 	@Override
 	public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
 		if (this.type != null) {
@@ -119,4 +165,5 @@ public class PracticeWorldState extends SavedData {
 		state.timerRunning = tag.getBoolean("TimerRunning");
 		return state;
 	}
+	//?}
 }

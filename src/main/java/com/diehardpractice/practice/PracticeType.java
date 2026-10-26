@@ -1,5 +1,6 @@
 package com.diehardpractice.practice;
 
+import com.mojang.serialization.Codec;
 import java.util.Locale;
 import net.minecraft.network.chat.Component;
 
@@ -8,6 +9,8 @@ public enum PracticeType {
 	FORTRESS("diehardpractice.practice_type.fortress"),
 	DRAGON("diehardpractice.practice_type.dragon"),
 	END_CITY("diehardpractice.practice_type.end_city");
+
+	public static final Codec<PracticeType> CODEC = Codec.STRING.xmap(PracticeType::valueOf, PracticeType::name);
 
 	private final String translationKey;
 
