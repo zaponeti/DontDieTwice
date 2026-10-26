@@ -7,17 +7,19 @@
 			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:soul_speed": 3, "minecraft:feather_falling": 4 } },
 			"offhand": "minecraft:shield",
 			"items": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
 				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
 				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:lava_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:golden_carrot", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 1 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:golden_carrot", "count": 64 },
 				"minecraft:spyglass",
-				"minecraft:crafting_table",
 				{ "item": "minecraft:oak_planks", "count": 64 },
 				{ "item": "minecraft:iron_ingot", "count": 32 },
 				"minecraft:bundle",
@@ -25,8 +27,6 @@
 				"minecraft:warped_fungus",
 				{ "item": "minecraft:torch", "count": 64 },
 				"minecraft:totem_of_undying",
-				"minecraft:oak_boat",
-				"minecraft:lava_bucket",
 				"minecraft:water_bucket"
 			]
 		},
@@ -37,21 +37,21 @@
 			"feet": "minecraft:golden_boots",
 			"offhand": "minecraft:shield",
 			"items": [
-				"minecraft:iron_sword",
-				"minecraft:iron_axe",
 				"minecraft:iron_pickaxe",
+				"minecraft:iron_axe",
+				"minecraft:iron_sword",
 				"minecraft:bow",
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:lava_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 32 },
 				{ "item": "minecraft:iron_ingot", "count": 16 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:oak_planks", "count": 64 },
-				"minecraft:crafting_table",
-				{ "item": "minecraft:bread", "count": 64 },
-				"minecraft:oak_boat",
 				"minecraft:bundle",
-				"minecraft:lava_bucket",
 				"minecraft:water_bucket"
 			]
 		},
@@ -61,10 +61,10 @@
 				"minecraft:stone_pickaxe",
 				"minecraft:stone_axe",
 				{ "item": "minecraft:oak_planks", "count": 32 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:lava_bucket",
 				"minecraft:oak_boat",
 				{ "item": "minecraft:bread", "count": 16 },
-				"minecraft:lava_bucket",
+				{ "item": "minecraft:cobblestone", "count": 64 },
 				"minecraft:water_bucket"
 			]
 		},
@@ -74,9 +74,9 @@
 				"minecraft:wooden_pickaxe",
 				"minecraft:wooden_axe",
 				{ "item": "minecraft:cobblestone", "count": 32 },
-				{ "item": "minecraft:apple", "count": 3 },
-				"minecraft:oak_boat",
 				"minecraft:lava_bucket",
+				"minecraft:oak_boat",
+				{ "item": "minecraft:apple", "count": 3 },
 				"minecraft:water_bucket"
 			]
 		}
@@ -89,19 +89,21 @@
 			"feet": { "item": "minecraft:golden_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:soul_speed": 3, "minecraft:feather_falling": 4 } },
 			"offhand": "minecraft:shield",
 			"items": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3, "minecraft:looting": 3 } },
-				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
 				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3, "minecraft:looting": 3 } },
 				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:golden_carrot", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 1 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:golden_carrot", "count": 64 },
 				"minecraft:spyglass",
 				{ "item": "minecraft:ender_pearl", "count": 16 },
 				{ "item": "minecraft:ender_pearl", "count": 16 },
-				"minecraft:crafting_table",
 				{ "item": "minecraft:oak_planks", "count": 64 },
 				{ "item": "minecraft:iron_ingot", "count": 32 },
 				"minecraft:bundle",
@@ -109,9 +111,7 @@
 				"minecraft:warped_fungus",
 				{ "item": "minecraft:torch", "count": 64 },
 				{ "potion": "minecraft:fire_resistance", "count": 6 },
-				"minecraft:totem_of_undying",
-				"minecraft:oak_boat",
-				"minecraft:water_bucket"
+				"minecraft:totem_of_undying"
 			]
 		},
 		"experienced": {
@@ -121,22 +121,22 @@
 			"feet": "minecraft:golden_boots",
 			"offhand": "minecraft:shield",
 			"items": [
-				"minecraft:iron_sword",
-				"minecraft:iron_axe",
 				"minecraft:iron_pickaxe",
+				"minecraft:iron_axe",
+				"minecraft:iron_sword",
 				"minecraft:bow",
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 32 },
 				{ "item": "minecraft:iron_ingot", "count": 16 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:oak_planks", "count": 64 },
-				"minecraft:crafting_table",
-				{ "item": "minecraft:bread", "count": 64 },
-				"minecraft:oak_boat",
 				"minecraft:bundle",
-				{ "potion": "minecraft:fire_resistance", "count": 3 },
-				"minecraft:water_bucket"
+				{ "potion": "minecraft:fire_resistance", "count": 3 }
 			]
 		},
 		"pro": {
@@ -145,11 +145,11 @@
 				"minecraft:stone_pickaxe",
 				"minecraft:stone_axe",
 				{ "item": "minecraft:oak_planks", "count": 32 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
 				"minecraft:oak_boat",
 				{ "item": "minecraft:bread", "count": 16 },
-				{ "potion": "minecraft:fire_resistance", "count": 2 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				{ "potion": "minecraft:fire_resistance", "count": 2 }
 			]
 		},
 		"speedrunner": {
@@ -158,9 +158,9 @@
 				"minecraft:wooden_pickaxe",
 				"minecraft:wooden_axe",
 				{ "item": "minecraft:cobblestone", "count": 32 },
+				"minecraft:water_bucket",
 				{ "item": "minecraft:apple", "count": 3 },
-				{ "potion": "minecraft:fire_resistance", "count": 1 },
-				"minecraft:water_bucket"
+				{ "potion": "minecraft:fire_resistance", "count": 1 }
 			]
 		}
 	},
@@ -172,27 +172,27 @@
 			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:feather_falling": 4 } },
 			"offhand": "minecraft:shield",
 			"items": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
 				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
 				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:golden_carrot", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 1 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:golden_carrot", "count": 64 },
 				"minecraft:spyglass",
 				{ "item": "minecraft:ender_pearl", "count": 16 },
-				"minecraft:crafting_table",
 				{ "item": "minecraft:oak_planks", "count": 64 },
 				{ "item": "minecraft:iron_ingot", "count": 32 },
 				"minecraft:bundle",
 				"minecraft:bundle",
 				"minecraft:warped_fungus",
 				{ "item": "minecraft:torch", "count": 64 },
-				"minecraft:totem_of_undying",
-				"minecraft:oak_boat",
-				"minecraft:water_bucket"
+				"minecraft:totem_of_undying"
 			]
 		},
 		"experienced": {
@@ -202,40 +202,40 @@
 			"feet": "minecraft:iron_boots",
 			"offhand": "minecraft:shield",
 			"items": [
-				"minecraft:iron_sword",
-				"minecraft:iron_axe",
 				"minecraft:iron_pickaxe",
+				"minecraft:iron_axe",
+				"minecraft:iron_sword",
 				"minecraft:bow",
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 32 },
 				{ "item": "minecraft:iron_ingot", "count": 16 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:oak_planks", "count": 64 },
-				"minecraft:crafting_table",
-				{ "item": "minecraft:bread", "count": 64 },
-				"minecraft:oak_boat",
 				"minecraft:bundle",
 				{ "item": "minecraft:ender_pearl", "count": 8 },
 				{ "item": "minecraft:obsidian", "count": 6 },
-				{ "item": "minecraft:red_bed", "count": 15 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:red_bed", "count": 15 }
 			]
 		},
 		"pro": {
 			"items": [
 				"minecraft:stone_pickaxe",
 				"minecraft:stone_axe",
+				"minecraft:bow",
 				{ "item": "minecraft:oak_planks", "count": 32 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
 				"minecraft:oak_boat",
 				{ "item": "minecraft:bread", "count": 16 },
+				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:obsidian", "count": 4 },
 				{ "item": "minecraft:red_bed", "count": 10 },
 				{ "item": "minecraft:ender_pearl", "count": 4 },
-				"minecraft:bow",
-				{ "item": "minecraft:arrow", "count": 8 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:arrow", "count": 8 }
 			]
 		},
 		"speedrunner": {
@@ -243,11 +243,11 @@
 				"minecraft:wooden_pickaxe",
 				"minecraft:wooden_axe",
 				{ "item": "minecraft:cobblestone", "count": 32 },
+				"minecraft:water_bucket",
 				{ "item": "minecraft:apple", "count": 3 },
 				{ "item": "minecraft:obsidian", "count": 4 },
 				{ "item": "minecraft:red_bed", "count": 6 },
-				{ "item": "minecraft:ender_pearl", "count": 3 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:ender_pearl", "count": 3 }
 			]
 		}
 	},
@@ -259,18 +259,20 @@
 			"feet": { "item": "minecraft:diamond_boots", "enchantments": { "minecraft:protection": 4, "minecraft:unbreaking": 3, "minecraft:feather_falling": 4 } },
 			"offhand": "minecraft:shield",
 			"items": [
-				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
-				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
 				{ "item": "minecraft:diamond_pickaxe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:fortune": 3 } },
+				{ "item": "minecraft:diamond_axe", "enchantments": { "minecraft:efficiency": 5, "minecraft:unbreaking": 3, "minecraft:sharpness": 5 } },
+				{ "item": "minecraft:diamond_sword", "enchantments": { "minecraft:sharpness": 5, "minecraft:unbreaking": 3 } },
 				{ "item": "minecraft:bow", "enchantments": { "minecraft:power": 5, "minecraft:unbreaking": 3, "minecraft:infinity": 1, "minecraft:flame": 1 } },
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:golden_carrot", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 1 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:golden_carrot", "count": 64 },
 				"minecraft:spyglass",
 				{ "item": "minecraft:ender_pearl", "count": 16 },
-				"minecraft:crafting_table",
 				{ "item": "minecraft:oak_planks", "count": 64 },
 				{ "item": "minecraft:iron_ingot", "count": 32 },
 				"minecraft:bundle",
@@ -279,9 +281,7 @@
 				{ "item": "minecraft:torch", "count": 64 },
 				{ "item": "minecraft:firework_rocket", "count": 64 },
 				{ "item": "minecraft:firework_rocket", "count": 64 },
-				"minecraft:totem_of_undying",
-				"minecraft:oak_boat",
-				"minecraft:water_bucket"
+				"minecraft:totem_of_undying"
 			]
 		},
 		"experienced": {
@@ -291,23 +291,23 @@
 			"feet": "minecraft:iron_boots",
 			"offhand": "minecraft:shield",
 			"items": [
-				"minecraft:iron_sword",
-				"minecraft:iron_axe",
 				"minecraft:iron_pickaxe",
+				"minecraft:iron_axe",
+				"minecraft:iron_sword",
 				"minecraft:bow",
+				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
+				"minecraft:oak_boat",
+				"minecraft:crafting_table",
+				{ "item": "minecraft:bread", "count": 64 },
 				{ "item": "minecraft:arrow", "count": 32 },
 				{ "item": "minecraft:iron_ingot", "count": 16 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:cobblestone", "count": 64 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
 				{ "item": "minecraft:oak_planks", "count": 64 },
-				"minecraft:crafting_table",
-				{ "item": "minecraft:bread", "count": 64 },
-				"minecraft:oak_boat",
 				"minecraft:bundle",
 				{ "item": "minecraft:firework_rocket", "count": 64 },
-				{ "item": "minecraft:ender_pearl", "count": 8 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:ender_pearl", "count": 8 }
 			]
 		},
 		"pro": {
@@ -315,10 +315,10 @@
 				"minecraft:stone_pickaxe",
 				"minecraft:stone_axe",
 				{ "item": "minecraft:oak_planks", "count": 32 },
-				{ "item": "minecraft:cobblestone", "count": 64 },
+				"minecraft:water_bucket",
 				"minecraft:oak_boat",
 				{ "item": "minecraft:bread", "count": 16 },
-				"minecraft:water_bucket"
+				{ "item": "minecraft:cobblestone", "count": 64 }
 			]
 		},
 		"speedrunner": {
@@ -326,8 +326,8 @@
 				"minecraft:wooden_pickaxe",
 				"minecraft:wooden_axe",
 				{ "item": "minecraft:cobblestone", "count": 32 },
-				{ "item": "minecraft:apple", "count": 3 },
-				"minecraft:water_bucket"
+				"minecraft:water_bucket",
+				{ "item": "minecraft:apple", "count": 3 }
 			]
 		}
 	}
