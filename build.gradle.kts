@@ -51,6 +51,10 @@ tasks {
         filesMatching("*.mixins.json") { expand("java" to requiredJava.majorVersion) }
     }
 
+    named<ProcessResources>("processClientResources") {
+        filesMatching("*.mixins.json") { expand("java" to requiredJava.majorVersion) }
+    }
+
     withType<JavaCompile>().configureEach {
         options.release = requiredJava.majorVersion.toInt()
     }
